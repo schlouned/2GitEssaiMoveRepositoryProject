@@ -15,21 +15,20 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Logger;
 
-/**
- * *********************************************
- * Class linked to the person table
- *
- * @author Schloune Denis
- **********************************************
- */
-public class Person extends AbstractEntity implements Serializable, Comparable<Person> {
 
+/***********************************************
+ * Class linked to the person table
+ * 
+ * @author Schloune Denis
+ ***********************************************/
+
+public class Person extends AbstractEntity implements Serializable, Comparable<Person> {
     //********************************************
     //members
     //********************************************
     private static final long serialVersionUID = 1L;
     private Integer personId;
-    private String address;
+    private String address;   
     private String city;
     private String country;
     private LocalDate dateOfBirth;
@@ -56,7 +55,7 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public Person(Integer personId) {
         this.personId = personId;
     }
-
+    
     //parametrable constructor
     public Person(Integer personId, String firstName, String lastName, String mobile, String email, String address, String postalCode, String city, String country, Boolean isTeacher, LocalDate dateOfBirth, Boolean isJuryMember) {
         this.personId = personId;
@@ -72,9 +71,9 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
         this.dateOfBirth = dateOfBirth;
         this.isJuryMember = isJuryMember;
     }
-
+    
     // parametrable constructor with a dateOfBirth parameter in String
-    public Person(Integer personId, String firstName, String lastName, String mobile, String email, String address, String postalCode, String city, String country, Boolean isTeacher, String dateOfBirth, Boolean isJuryMember) {
+     public Person(Integer personId, String firstName, String lastName, String mobile, String email, String address, String postalCode, String city, String country, Boolean isTeacher, String dateOfBirth, Boolean isJuryMember) {
         this.personId = personId;
         this.firstName = firstName;
         this.name = lastName;
@@ -87,15 +86,15 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
         this.isTeacher = isTeacher;
         this.dateOfBirth = null;
         this.isJuryMember = isJuryMember;
-
+        
         this.setDateOfBirth(dateOfBirth);
     }
-
+     
     //Method from abstract class AbstractEntity
     public Integer getId() {
         return personId;
     }
-
+    
     //*****************************
     //getter and setter
     //*****************************
@@ -138,7 +137,8 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
+    
+    //setDateOfBirth from a string -> conversion
     //setDateOfBirth from a string -> conversion
     public void setDateOfBirth(String date) {
         try {
@@ -155,7 +155,7 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
-
+    
     public String getEmail() {
         return email;
     }
@@ -211,7 +211,7 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
+    
     @JsonbTransient
     public Collection<OrganizedUe> getOrganizedUes() {
         return organizedUes;
@@ -220,7 +220,7 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public void setOrganizedUes(Collection<OrganizedUe> organizedUes) {
         this.organizedUes = organizedUes;
     }
-
+    
     @JsonbTransient
     public Collection<StudentOrganizedUe> getStudentOrganizedUes() {
         return studentOrganizedUes;
@@ -238,7 +238,7 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public void setSections(Collection<Section> sections) {
         this.sections = sections;
     }
-
+    
     @JsonbTransient
     public Collection<Planning> getPlannings() {
         return plannings;
@@ -247,7 +247,7 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public void setPlannings(Collection<Planning> plannings) {
         this.plannings = plannings;
     }
-
+    
     @JsonbTransient
     public Collection<Presence> getPresences() {
         return presences;
@@ -284,32 +284,32 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
     public String toString() {
         return name + " " + firstName;
     }
-
+    
     //compareTo: I decided to use firstName, name and dateOfBirth to
     //discriminate a person, I just need to convert a Date in String with the method dateToString below
-    public int compareTo(Person p) {
+    public int compareTo(Person p) { 
         Boolean lastNameBool = false;
         Boolean firstNameBool = false;
         Boolean dateOfBirthBool = false;
         String strThis = "";
         String strP = "";
-
-        if (this.name != null && this.name.length() > 0 && p.getName() != null && p.getName().length() > 0) {
+        
+        if(this.name != null && this.name.length() > 0 && p.getName() != null && p.getName().length() > 0){
             lastNameBool = true;
             strThis += this.name;
             strP += p.getName();
         }
-        if (this.firstName != null && this.firstName.length() > 0 && p.getFirstName() != null && p.getFirstName().length() > 0) {
+        if(this.firstName != null && this.firstName.length() > 0 && p.getFirstName() != null && p.getFirstName().length() > 0){
             firstNameBool = true;
             strThis += this.firstName;
             strP += p.getFirstName();
         }
-        if (this.dateOfBirth != null && p.getDateOfBirth() != null) {
+        if(this.dateOfBirth != null && p.getDateOfBirth() != null){
             dateOfBirthBool = true;
             strThis += this.dateOfBirth;
             strP += p.getDateOfBirth();
         }
-        if (!(firstNameBool || lastNameBool || dateOfBirthBool)) {
+        if(!(firstNameBool || lastNameBool || dateOfBirthBool)){
 //            return this.personId.compareTo(p.personId);
             return 0;
         }
@@ -317,12 +317,12 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
         strThis = strThis.toLowerCase();
         strP = strP.toLowerCase();
         //*******************************
-
+        
         return strThis.compareTo(strP);
-
+        
     }
-
-    /* @Override
+    
+   /* @Override
     public Person clone(){
         Person clone = new Person();
         
@@ -341,4 +341,5 @@ public class Person extends AbstractEntity implements Serializable, Comparable<P
         
         return clone;        
     }*/
+    
 }

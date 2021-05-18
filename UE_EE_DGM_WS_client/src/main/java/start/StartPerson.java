@@ -57,6 +57,7 @@ public class StartPerson {
         System.out.println("Person List (add):");
         System.out.println("******************");
         Person personTest = persons.get(0);
+        //personTest.setDateOfBirth("1987-02-13"); // don't recover the date of birth???
         for (Person p : persons) {
             System.out.println(p.getName() + " " + p.getFirstName());
         }
