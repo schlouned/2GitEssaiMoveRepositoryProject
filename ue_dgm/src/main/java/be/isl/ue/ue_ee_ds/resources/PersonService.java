@@ -37,7 +37,6 @@ public class PersonService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("All")
-    @JsonbDateFormat
     public List<Person> getAll(){
         return ejb.findAll();
     }
@@ -66,6 +65,7 @@ public class PersonService {
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
+    @JsonbDateFormat
     public String countREST(){
         return String.valueOf(ejb.count());
     }
@@ -82,6 +82,7 @@ public class PersonService {
     //create
     @POST
     @Consumes((MediaType.APPLICATION_JSON))
+    @JsonbDateFormat
     public void create(Person entity){
         ejb.create(entity);
     }
@@ -90,6 +91,7 @@ public class PersonService {
     @PUT
     @Path("{id}")
     @Consumes((MediaType.APPLICATION_JSON))
+    @JsonbDateFormat
     public void edit(@PathParam("id") Integer id, Person entity){
         ejb.edit(entity);
     }
